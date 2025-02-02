@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 18, 2023 at 03:53 PM
--- Server version: 8.0.33-0ubuntu0.22.04.2
--- PHP Version: 8.2.6
+-- Host: 127.0.0.1
+-- Generation Time: May 08, 2018 at 08:38 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,263 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cbpos_db.SQL`
+-- Database: `boza_marketing`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `brands`
---
-
-CREATE TABLE `brands` (
-  `id` int NOT NULL,
-  `name` varchar(250) NOT NULL,
-  `description` text,
-  `image_path` text,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `delete_flag` tinyint(1) NOT NULL DEFAULT '0',
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `brands`
---
-
-INSERT INTO `brands` (`id`, `name`, `description`, `image_path`, `status`, `delete_flag`, `date_created`) VALUES
-(1, 'L’Oreal', 'L’Oreal  manufactures and markets a wide range of skincare, makeup, fragrance, and hair care products', 'uploads/brands/1.jpg?v=1645066502', 1, 0, '2022-02-17 10:55:02'),
-(2, 'test', 'test', NULL, 1, 1, '2022-02-17 10:57:41'),
-(3, 'Nivea', 'Nivea manufactures and markets skin, sun, lip and deodorant products', 'uploads/brands/3.jpg?v=1645066772', 1, 0, '2022-02-17 10:59:32'),
-(4, 'Olay', 'Olay manufactures and markets face and skin care products', 'uploads/brands/4.jpg?v=1645066818', 1, 0, '2022-02-17 11:00:18'),
-(5, 'LUX', 'A global personal care brand by Unilever, Lux product categories include soaps, shower gels, bath products, shampoos, and conditioners. Lux is a strong advocate of sustainable causes and is sold in more than 100 countries worldwide.', 'uploads/brands/5.jpg?v=1645066872', 1, 0, '2022-02-17 11:01:12'),
-(6, 'AVON', 'Avon is a direct sales company operating in the skin, body, fragrance, make-up, sun care and fashion markets. A leading company within the direct sales market, Avon has millions of beauty advisors worldwide and recently moved its headquarters from the U.S. to the UK.', 'uploads/brands/6.jpg?v=1645066909', 1, 0, '2022-02-17 11:01:49');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart`
---
-
-CREATE TABLE `cart` (
-  `id` int NOT NULL,
-  `client_id` int NOT NULL,
-  `inventory_id` int NOT NULL,
-  `price` double NOT NULL,
-  `quantity` int NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int NOT NULL,
-  `category` varchar(250) NOT NULL,
-  `description` text,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `delete_flag` tinyint(1) NOT NULL DEFAULT '0',
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `category`, `description`, `status`, `delete_flag`, `date_created`) VALUES
-(1, 'Skin Care', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi congue interdum pellentesque. Praesent bibendum vehicula libero a congue. In molestie rhoncus finibus.', 1, 0, '2022-02-17 11:27:11'),
-(2, 'Oral Care', 'n interdum quis urna sed auctor. Vivamus a ligula ut dui aliquam efficitur ut eu ante. Phasellus pretium ut risus vitae euismod. Cras ac velit mollis, sodales urna vitae, pharetra dui. Mauris et sem vel est interdum lobortis sit amet quis felis.', 1, 0, '2022-02-17 11:27:24'),
-(3, 'Body Care', 'n interdum quis urna sed auctor. Vivamus a ligula ut dui aliquam efficitur ut eu ante. Phasellus pretium ut risus vitae euismod. Cras ac velit mollis, sodales urna vitae, pharetra dui. Mauris et sem vel est interdum lobortis sit amet quis felis.', 1, 0, '2022-02-17 11:27:45'),
-(4, 'Perfumes', 'Donec sit amet consectetur leo, eu lacinia risus. Donec dignissim magna lectus, vitae viverra lacus blandit vitae.', 1, 0, '2022-02-17 11:27:55'),
-(5, 'Hair Care', 'Proin sit amet elit in massa posuere ullamcorper quis quis sem. Phasellus accumsan augue vitae varius rhoncus. Proin vitae leo ante. Praesent a lorem justo.', 1, 0, '2022-02-17 11:28:38'),
-(6, 'Sun Care', 'Nam nisl ex, condimentum nec malesuada cursus, ullamcorper in velit. Quisque lobortis diam nunc, at auctor felis placerat eu. Nullam egestas rhoncus lacinia.', 1, 0, '2022-02-17 11:29:00'),
-(7, 'Decorative', 'Donec imperdiet viverra eros eu elementum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean in nulla nec ex cursus consequat nec vel ipsum. Phasellus tristique erat sit amet neque venenatis volutpat. Maecenas varius venenatis sagittis.', 1, 0, '2022-02-17 11:29:19'),
-(8, 'Lipsticks', 'Nullam quis gravida purus, quis sagittis nibh. Ut eget maximus nisl. Nam elementum diam libero, et scelerisque nisi molestie quis. Duis accumsan, neque nec laoreet malesuada, est ex pretium urna, at pellentesque arcu mauris a est. Proin et sollicitudin dui. Integer consectetur pulvinar tellus in fermentum.', 1, 0, '2022-02-17 11:29:38'),
-(9, 'Lip Tint', 'Donec eu porttitor quam. Etiam mollis consequat risus quis maximus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas', 1, 0, '2022-02-17 11:29:59'),
-(10, 'test', 'test', 0, 1, '2022-02-17 11:31:18');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `clients`
---
-
-CREATE TABLE `clients` (
-  `id` int NOT NULL,
-  `firstname` varchar(250) NOT NULL,
-  `lastname` varchar(250) NOT NULL,
-  `gender` varchar(20) NOT NULL,
-  `contact` varchar(15) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `password` text NOT NULL,
-  `default_delivery_address` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `delete_flag` tinyint(1) NOT NULL DEFAULT '0',
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `clients`
---
-
-INSERT INTO `clients` (`id`, `firstname`, `lastname`, `gender`, `contact`, `email`, `password`, `default_delivery_address`, `status`, `delete_flag`, `date_created`) VALUES
-(2, 'Samantha Jane', 'Miller', 'Female', '09123456789', 'sam23@sample.com', '45bff2a14658fc9b21c6e5e9bf75186b', 'Sample Address', 1, 0, '2022-02-17 14:24:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inventory`
---
-
-CREATE TABLE `inventory` (
-  `id` int NOT NULL,
-  `variant` text NOT NULL,
-  `product_id` int NOT NULL,
-  `quantity` double NOT NULL,
-  `price` float NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `inventory`
---
-
-INSERT INTO `inventory` (`id`, `variant`, `product_id`, `quantity`, `price`, `date_created`, `date_updated`) VALUES
-(1, 'Variant 1', 1, 10, 155, '2022-02-17 11:57:52', NULL),
-(2, 'Variant 2', 1, 5, 200, '2022-02-17 12:01:15', NULL),
-(3, 'Variant 3', 1, 10, 1055.58, '2022-02-17 12:04:15', NULL),
-(4, 'Variant 1', 3, 25, 250, '2022-02-17 13:22:54', NULL),
-(5, 'Variant 2', 3, 25, 300, '2022-02-17 13:23:05', NULL),
-(6, 'Variant 1', 4, 100, 350, '2022-02-17 16:28:14', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `id` int NOT NULL,
-  `ref_code` varchar(100) NOT NULL,
-  `client_id` int NOT NULL,
-  `delivery_address` text NOT NULL,
-  `payment_method` varchar(100) NOT NULL,
-  `order_type` tinyint(1) NOT NULL COMMENT '1= pickup,2= deliver',
-  `amount` double NOT NULL,
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '0 = pending,\r\n1= Packed,\r\n2 = Out for Delivery,\r\n3=Delivered,\r\n4=cancelled',
-  `paid` tinyint(1) NOT NULL DEFAULT '0',
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `ref_code`, `client_id`, `delivery_address`, `payment_method`, `order_type`, `amount`, `status`, `paid`, `date_created`, `date_updated`) VALUES
-(3, '20220200001', 2, 'Sample Address', 'cod', 0, 900, 4, 0, '2022-02-17 14:51:58', '2022-02-17 15:04:38'),
-(4, '20220200002', 2, 'Sample Address', 'Online Payment', 0, 1800, 3, 1, '2022-02-17 15:26:17', '2022-02-17 15:35:45'),
-(5, '20220200003', 2, 'Sample Address', 'cod', 0, 500, 3, 1, '2022-02-17 15:32:52', '2022-02-17 15:35:32');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `order_list`
---
-
-CREATE TABLE `order_list` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `inventory_id` int NOT NULL,
-  `quantity` int NOT NULL,
-  `price` double NOT NULL,
-  `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `order_list`
---
-
-INSERT INTO `order_list` (`id`, `order_id`, `inventory_id`, `quantity`, `price`, `total`) VALUES
-(4, 3, 3, 3, 300, 900),
-(5, 4, 3, 4, 300, 1200),
-(6, 4, 1, 3, 200, 600),
-(7, 5, 3, 2, 250, 500);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `products`
---
-
-CREATE TABLE `products` (
-  `id` int NOT NULL,
-  `brand_id` int NOT NULL,
-  `category_id` int NOT NULL,
-  `name` varchar(250) NOT NULL,
-  `specs` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `delete_flag` tinyint(1) NOT NULL DEFAULT '0',
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`id`, `brand_id`, `category_id`, `name`, `specs`, `status`, `delete_flag`, `date_created`) VALUES
-(1, 6, 8, 'Sample 101', '&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi congue interdum pellentesque. Praesent bibendum vehicula libero a congue. In molestie rhoncus finibus. In interdum quis urna sed auctor. Vivamus a ligula ut dui aliquam efficitur ut eu ante. Phasellus pretium ut risus vitae euismod. Cras ac velit mollis, sodales urna vitae, pharetra dui. Mauris et sem vel est interdum lobortis sit amet quis felis. Donec sit amet consectetur leo, eu lacinia risus. Donec dignissim magna lectus, vitae viverra lacus blandit vitae.&lt;/p&gt;&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;Proin sit amet elit in massa posuere ullamcorper quis quis sem. Phasellus accumsan augue vitae varius rhoncus. Proin vitae leo ante. Praesent a lorem justo. Nam nisl ex, condimentum nec malesuada cursus, ullamcorper in velit. Quisque lobortis diam nunc, at auctor felis placerat eu. Nullam egestas rhoncus lacinia.&lt;/p&gt;&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;Donec imperdiet viverra eros eu elementum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean in nulla nec ex cursus consequat nec vel ipsum. Phasellus tristique erat sit amet neque venenatis volutpat. Maecenas varius venenatis sagittis. Nullam quis gravida purus, quis sagittis nibh. Ut eget maximus nisl. Nam elementum diam libero, et scelerisque nisi molestie quis. Duis accumsan, neque nec laoreet malesuada, est ex pretium urna, at pellentesque arcu mauris a est. Proin et sollicitudin dui. Integer consectetur pulvinar tellus in fermentum.&lt;/p&gt;', 1, 0, '2022-02-17 11:50:19'),
-(2, 5, 7, 'test', '&lt;p&gt;test&lt;/p&gt;', 0, 1, '2022-02-17 11:54:02'),
-(3, 1, 1, 'Sample 102', '&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;Donec eu porttitor quam. Etiam mollis consequat risus quis maximus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam pretium et mi vel fringilla. Phasellus facilisis porttitor purus, a egestas magna rutrum ac. Donec in augue lorem. Donec varius elit ante, eget convallis leo ornare faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed finibus purus eget porta malesuada. Phasellus eu cursus urna.&lt;/p&gt;&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;Vestibulum quis velit ipsum. Sed placerat nisi leo, et aliquam massa laoreet at. Aenean fringilla nibh sit amet enim posuere, vitae vulputate turpis elementum. Mauris venenatis augue sed tincidunt efficitur. Praesent interdum odio sit amet lacus tincidunt vulputate. Sed pretium metus augue. Vivamus sed nisl ut metus accumsan interdum ac vel ante. Mauris ac placerat felis.&lt;/p&gt;', 1, 0, '2022-02-17 13:22:33'),
-(4, 4, 8, 'Sample 103', '&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;Suspendisse vel justo tempus, dignissim augue vel, tempor ipsum. Sed at porta nisi. Aliquam dui neque, gravida id massa sed, aliquam tincidunt libero. Nunc dictum tristique luctus. Pellentesque id urna vitae orci imperdiet hendrerit ut ac ipsum. Integer convallis non nisi a aliquet. Aenean consequat, mauris non rhoncus molestie, nibh tortor gravida turpis, a finibus ante turpis non turpis. Proin varius condimentum ultricies. Sed vestibulum commodo elit, vitae fermentum ligula accumsan a. In lobortis turpis ut faucibus lobortis. Pellentesque quis vestibulum nibh. Integer eget metus quis nibh varius fringilla. Praesent ac eleifend ligula, vitae suscipit felis. Nulla facilisi. Nullam ligula enim, interdum et lobortis dignissim, auctor quis mi. Cras ut odio porta, iaculis est nec, maximus dui.&lt;/p&gt;&lt;p style=&quot;margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &amp;quot;Open Sans&amp;quot;, Arial, sans-serif;&quot;&gt;Aenean eleifend arcu eu risus rutrum, at sollicitudin velit ultrices. Phasellus vulputate dictum lectus, eu cursus purus feugiat vel. In venenatis diam sem, sit amet congue lorem porttitor quis. Maecenas sit amet ante hendrerit, fermentum arcu sed, mollis dolor. Integer finibus ipsum eu libero tristique, eu venenatis mi fermentum. Nulla non nisl imperdiet, cursus ligula eu, feugiat mi. Integer ut porta leo, eu imperdiet nunc. Nullam maximus neque quis orci porttitor, ac commodo nibh convallis. Cras ac hendrerit lacus, ut maximus purus. Praesent hendrerit magna mi, vel consequat erat pulvinar id. Nam pharetra fringilla nunc. Proin aliquet justo sed massa pellentesque, in interdum arcu vulputate. Aliquam sed tempor libero, sit amet ultrices arcu. Nam sit amet lacinia risus. Etiam tellus purus, cursus a facilisis sed, pharetra id eros.&lt;/p&gt;', 1, 0, '2022-02-17 16:27:41');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sales`
---
-
-CREATE TABLE `sales` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `total_amount` double NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `sales`
---
-
-INSERT INTO `sales` (`id`, `order_id`, `total_amount`, `date_created`) VALUES
-(3, 3, 900, '2022-02-17 14:51:58'),
-(4, 4, 1800, '2022-02-17 15:26:17'),
-(5, 5, 500, '2022-02-17 15:32:52');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `system_info`
---
-
-CREATE TABLE `system_info` (
-  `id` int NOT NULL,
-  `meta_field` text NOT NULL,
-  `meta_value` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `system_info`
---
-
-INSERT INTO `system_info` (`id`, `meta_field`, `meta_value`) VALUES
-(1, 'name', 'Cosmetic and Beauty Products Online Shop'),
-(6, 'short_name', 'Beauty'),
-(11, 'logo', 'uploads/logo-1645065716.jpg?v=1645065716'),
-(13, 'user_avatar', 'uploads/user_avatar.jpg'),
-(14, 'cover', 'uploads/cover-1645065725.jpg?v=1645065725');
 
 -- --------------------------------------------------------
 
@@ -283,7 +29,7 @@ INSERT INTO `system_info` (`id`, `meta_field`, `meta_value`) VALUES
 --
 
 CREATE TABLE `tbl_color` (
-  `color_id` int NOT NULL,
+  `color_id` int(11) NOT NULL,
   `color_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -320,9 +66,9 @@ INSERT INTO `tbl_color` (`color_id`, `color_name`) VALUES
 --
 
 CREATE TABLE `tbl_country` (
-  `country_id` int NOT NULL,
+  `country_id` int(11) NOT NULL,
   `country_name` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_country`
@@ -582,12 +328,12 @@ INSERT INTO `tbl_country` (`country_id`, `country_name`) VALUES
 --
 
 CREATE TABLE `tbl_customer` (
-  `cust_id` int NOT NULL,
+  `cust_id` int(11) NOT NULL,
   `cust_name` varchar(100) NOT NULL,
   `cust_cname` varchar(100) NOT NULL,
   `cust_email` varchar(100) NOT NULL,
   `cust_phone` varchar(50) NOT NULL,
-  `cust_country` int NOT NULL,
+  `cust_country` int(11) NOT NULL,
   `cust_address` text NOT NULL,
   `cust_city` varchar(100) NOT NULL,
   `cust_state` varchar(100) NOT NULL,
@@ -595,7 +341,7 @@ CREATE TABLE `tbl_customer` (
   `cust_b_name` varchar(100) NOT NULL,
   `cust_b_cname` varchar(100) NOT NULL,
   `cust_b_phone` varchar(50) NOT NULL,
-  `cust_b_country` int NOT NULL,
+  `cust_b_country` int(11) NOT NULL,
   `cust_b_address` text NOT NULL,
   `cust_b_city` varchar(100) NOT NULL,
   `cust_b_state` varchar(100) NOT NULL,
@@ -603,7 +349,7 @@ CREATE TABLE `tbl_customer` (
   `cust_s_name` varchar(100) NOT NULL,
   `cust_s_cname` varchar(100) NOT NULL,
   `cust_s_phone` varchar(50) NOT NULL,
-  `cust_s_country` int NOT NULL,
+  `cust_s_country` int(11) NOT NULL,
   `cust_s_address` text NOT NULL,
   `cust_s_city` varchar(100) NOT NULL,
   `cust_s_state` varchar(100) NOT NULL,
@@ -612,7 +358,7 @@ CREATE TABLE `tbl_customer` (
   `cust_token` varchar(255) NOT NULL,
   `cust_datetime` varchar(100) NOT NULL,
   `cust_timestamp` varchar(100) NOT NULL,
-  `cust_status` int NOT NULL
+  `cust_status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -620,8 +366,8 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`cust_id`, `cust_name`, `cust_cname`, `cust_email`, `cust_phone`, `cust_country`, `cust_address`, `cust_city`, `cust_state`, `cust_zip`, `cust_b_name`, `cust_b_cname`, `cust_b_phone`, `cust_b_country`, `cust_b_address`, `cust_b_city`, `cust_b_state`, `cust_b_zip`, `cust_s_name`, `cust_s_cname`, `cust_s_phone`, `cust_s_country`, `cust_s_address`, `cust_s_city`, `cust_s_state`, `cust_s_zip`, `cust_password`, `cust_token`, `cust_datetime`, `cust_timestamp`, `cust_status`) VALUES
-(4, 'Hammad', '', 'wonk.xags@gmail.com', '49857243857', 228, 'address', 'dubai', 'dubai', '0000', '', '', '', 0, '', '', '', '', '', '', '', 0, '', '', '', '', 'e10adc3949ba59abbe56e057f20f883e', '34d03a29d49aaba635ad6efee22c4d30', '2018-04-21 02:40:10', '1524264010', 1),
-(5, 'Hammad Hassan', '', 'mc170200216@vu.edu.pk', '49857243857', 228, 'address', 'dubai', 'Dubai', '0000', 'Hammad Hassan', 'Company Name', '971502020067', 228, 'Dubai Investments Park 1', 'Dubai', 'Dubai', '75400', 'Hammad Hassan', 'Company Name', '971502020067', 228, 'Dubai Investments Park 1', 'Dubai', 'Dubai', '75400', '9794cb7c1989a7d0d36a62426cb170e4', '92dd269f6494db9e8e8ab28c528bbe80', '2018-04-23 10:06:51', '1524506811', 1);
+(4, 'Joshua', '', 'joshua.muriithi@gmail.com', '0759876943', 254, 'address', 'Nairobi', 'Westlands', '0100', '', '', '', 0, '', '', '', '', '', '', '', 0, '', '', '', '', 'mutugiiimurithiii', '34d03a29d49aaba635ad6efee22c4d30', '2018-04-21 02:40:10', '1524264010', 1),
+(5, 'Elvis Kithinji', '', 'kithinjielvis@gmail.com', '0741439368', 254, 'address', 'Nairobi', 'Ngong road', '0010', 'Elvis Kithinji', 'Company Name', '0741439368', 254, 'Ngong Investments Park 1', 'Nairobi', 'Ngong road', '75400', '', '', '', '', '', '', '', 'mutugiiimurithiii', '92dd269f6494db9e8e8ab28c528bbe80', '2018-04-23 10:06:51', '1524506811', 1);
 
 -- --------------------------------------------------------
 
@@ -630,11 +376,11 @@ INSERT INTO `tbl_customer` (`cust_id`, `cust_name`, `cust_cname`, `cust_email`, 
 --
 
 CREATE TABLE `tbl_customer_message` (
-  `customer_message_id` int NOT NULL,
+  `customer_message_id` int(11) NOT NULL,
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `order_detail` text NOT NULL,
-  `cust_id` int NOT NULL
+  `cust_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -655,9 +401,9 @@ INSERT INTO `tbl_customer_message` (`customer_message_id`, `subject`, `message`,
 --
 
 CREATE TABLE `tbl_end_category` (
-  `ecat_id` int NOT NULL,
+  `ecat_id` int(11) NOT NULL,
   `ecat_name` varchar(255) NOT NULL,
-  `mcat_id` int NOT NULL
+  `mcat_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -732,7 +478,7 @@ INSERT INTO `tbl_end_category` (`ecat_id`, `ecat_name`, `mcat_id`) VALUES
 --
 
 CREATE TABLE `tbl_faq` (
-  `faq_id` int NOT NULL,
+  `faq_id` int(11) NOT NULL,
   `faq_title` varchar(255) NOT NULL,
   `faq_content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -742,7 +488,7 @@ CREATE TABLE `tbl_faq` (
 --
 
 INSERT INTO `tbl_faq` (`faq_id`, `faq_title`, `faq_content`) VALUES
-(1, 'How to find an item on boza.com?', '<h3 class=\"checkout-complete-box font-bold txt16\" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; margin: 0.2rem 0px 0.5rem; padding: 0px; line-height: 1.4; background-color: rgb(250, 250, 250);\"><font color=\"#222222\" face=\"opensans, Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif\"><span style=\"font-size: 15.7143px;\">We have a wide range of fabulous products to choose from.</span></font></h3><h3 class=\"checkout-complete-box font-bold txt16\" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; margin: 0.2rem 0px 0.5rem; padding: 0px; line-height: 1.4; background-color: rgb(250, 250, 250);\"><span style=\"font-size: 15.7143px; color: rgb(34, 34, 34); font-family: opensans, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif;\">Tip 1: If you\'re looking for a specific product, use the keyword search box located at the top of the site. Simply type what you are looking for, and prepare to be amazed!</span></h3><h3 class=\"checkout-complete-box font-bold txt16\" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; margin: 0.2rem 0px 0.5rem; padding: 0px; line-height: 1.4; background-color: rgb(250, 250, 250);\"><font color=\"#222222\" face=\"opensans, Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif\"><span style=\"font-size: 15.7143px;\">Tip 2: If you want to explore a category of products, use the Shop Categories in the upper menu, and navigate through your favorite categories where we\'ll feature the best products in each.</span></font><br><br></h3>\r\n'),
+(1, 'How to find an item on Fashionys.com?', '<h3 class=\"checkout-complete-box font-bold txt16\" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; margin: 0.2rem 0px 0.5rem; padding: 0px; line-height: 1.4; background-color: rgb(250, 250, 250);\"><font color=\"#222222\" face=\"opensans, Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif\"><span style=\"font-size: 15.7143px;\">We have a wide range of fabulous products to choose from.</span></font></h3><h3 class=\"checkout-complete-box font-bold txt16\" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; margin: 0.2rem 0px 0.5rem; padding: 0px; line-height: 1.4; background-color: rgb(250, 250, 250);\"><span style=\"font-size: 15.7143px; color: rgb(34, 34, 34); font-family: opensans, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif;\">Tip 1: If you\'re looking for a specific product, use the keyword search box located at the top of the site. Simply type what you are looking for, and prepare to be amazed!</span></h3><h3 class=\"checkout-complete-box font-bold txt16\" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; margin: 0.2rem 0px 0.5rem; padding: 0px; line-height: 1.4; background-color: rgb(250, 250, 250);\"><font color=\"#222222\" face=\"opensans, Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif\"><span style=\"font-size: 15.7143px;\">Tip 2: If you want to explore a category of products, use the Shop Categories in the upper menu, and navigate through your favorite categories where we\'ll feature the best products in each.</span></font><br><br></h3>\r\n'),
 (2, 'What is your return policy?', '<p><span style=\"color: rgb(10, 10, 10); font-family: opensans, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 14px; text-align: center;\">You have 15 days to make a refund request after your order has been delivered.</span><br></p>\r\n'),
 (3, ' I received a defective/damaged item, can I get a refund?', '<p>In case the item you received is damaged or defective, you could return an item in the same condition as you received it with the original box and/or packaging intact. Once we receive the returned item, we will inspect it and if the item is found to be defective or damaged, we will process the refund along with any shipping fees incurred.<br></p>\r\n'),
 (4, 'When are ‘Returns’ not possible?', '<p class=\"a  \" style=\"box-sizing: inherit; text-rendering: optimizeLegibility; line-height: 1.6; margin-bottom: 0.714286rem; padding: 0px; font-size: 14px; color: rgb(10, 10, 10); font-family: opensans, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; background-color: rgb(250, 250, 250);\">There are a few certain scenarios where it is difficult for us to support returns:</p><ol style=\"box-sizing: inherit; line-height: 1.6; margin-right: 0px; margin-bottom: 0px; margin-left: 1.25rem; padding: 0px; list-style-position: outside; color: rgb(10, 10, 10); font-family: opensans, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 14px; background-color: rgb(250, 250, 250);\"><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Return request is made outside the specified time frame, of 15 days from delivery.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Product is used, damaged, or is not in the same condition as you received it.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Specific categories like innerwear, lingerie, socks and clothing freebies etc.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Defective products which are covered under the manufacturer\'s warranty.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Any consumable item which has been used or installed.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Products with tampered or missing serial numbers.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Anything missing from the package you\'ve received including price tags, labels, original packing, freebies and accessories.</li><li style=\"box-sizing: inherit; margin: 0px; padding: 0px; font-size: inherit;\">Fragile items, hygiene related items.</li></ol>\r\n'),
@@ -755,7 +501,7 @@ INSERT INTO `tbl_faq` (`faq_id`, `faq_title`, `faq_content`) VALUES
 --
 
 CREATE TABLE `tbl_language` (
-  `lang_id` int NOT NULL,
+  `lang_id` int(11) NOT NULL,
   `lang_name` varchar(255) NOT NULL,
   `lang_value` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -765,7 +511,7 @@ CREATE TABLE `tbl_language` (
 --
 
 INSERT INTO `tbl_language` (`lang_id`, `lang_name`, `lang_value`) VALUES
-(1, 'Currency', 'KSH'),
+(1, 'Currency', '$'),
 (2, 'Search Product', 'Search Product'),
 (3, 'Search', 'Search'),
 (4, 'Submit', 'Submit'),
@@ -936,9 +682,9 @@ INSERT INTO `tbl_language` (`lang_id`, `lang_name`, `lang_value`) VALUES
 --
 
 CREATE TABLE `tbl_mid_category` (
-  `mcat_id` int NOT NULL,
+  `mcat_id` int(11) NOT NULL,
   `mcat_name` varchar(255) NOT NULL,
-  `tcat_id` int NOT NULL
+  `tcat_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -965,8 +711,8 @@ INSERT INTO `tbl_mid_category` (`mcat_id`, `mcat_name`, `tcat_id`) VALUES
 --
 
 CREATE TABLE `tbl_order` (
-  `id` int NOT NULL,
-  `product_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
   `size` varchar(100) NOT NULL,
   `color` varchar(100) NOT NULL,
@@ -989,7 +735,7 @@ INSERT INTO `tbl_order` (`id`, `product_id`, `product_name`, `size`, `color`, `q
 --
 
 CREATE TABLE `tbl_page` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `about_title` varchar(255) NOT NULL,
   `about_content` text NOT NULL,
   `about_banner` varchar(255) NOT NULL,
@@ -1028,7 +774,7 @@ CREATE TABLE `tbl_page` (
 --
 
 INSERT INTO `tbl_page` (`id`, `about_title`, `about_content`, `about_banner`, `about_meta_title`, `about_meta_keyword`, `about_meta_description`, `faq_title`, `faq_banner`, `faq_meta_title`, `faq_meta_keyword`, `faq_meta_description`, `blog_title`, `blog_banner`, `blog_meta_title`, `blog_meta_keyword`, `blog_meta_description`, `contact_title`, `contact_banner`, `contact_meta_title`, `contact_meta_keyword`, `contact_meta_description`, `pgallery_title`, `pgallery_banner`, `pgallery_meta_title`, `pgallery_meta_keyword`, `pgallery_meta_description`, `vgallery_title`, `vgallery_banner`, `vgallery_meta_title`, `vgallery_meta_keyword`, `vgallery_meta_description`) VALUES
-(1, 'About Us', '<p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>boza.com</b> has made you shine on your special days specially for beautiful women. Our goal has always been to celebrate YOU! To get the best in you we brought a huge collection whether youâ€™re attending a party, wedding, and all those events that require a WOW dress.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>About Us</b></span></font></p><p style=\"text-align: justify; \"><span style=\"font-family: apercu, Arial, sans-serif; font-size: 14px; font-weight: 700;\">Fashionys.com</span><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">&nbsp;is a new fashion shopping site which brings trendy fashion products at addictive prices. We feel fashion is not what you wear but how you feel, so Keeping this in mind, we brought you the designer wear clothing comprising a wide range of designs, style and prints to meet your every mood, whim and fancy.</span></font></p><p style=\"text-align: justify; \"><span style=\"font-size: 14px; font-family: apercu, Arial, sans-serif;\"><b>Our Vision</b></span><br></p><p style=\"text-align: justify; \"><span style=\"font-size: 14px; font-family: apercu, Arial, sans-serif;\">Our vision is to â€œIntroduce the beauty in you with your beautiful smileâ€ to the world with the best online shopping experience. Weâ€™ve the handpicked collection of clothes for women to suit them based on their body type, skin tone, budget and style preferences. We aim to bring our customers a wholesome real time trendy shopping experience, providing them with all the information they need regarding fit, comfort, fabric and everything else on their mind for each and every product in our collections, through size charts. Also, includes introducing new designs, styles and categories along with all the fashion happening.</span><br></p><p style=\"text-align: justify; \"><span style=\"font-weight: 700; font-family: apercu, Arial, sans-serif; font-size: 14px;\">Why Fashionys.com</span><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">?</span></font></p><p style=\"text-align: justify; \"><span style=\"font-family: apercu, Arial, sans-serif; font-size: 14px; font-weight: 700;\">Fashionys.com</span><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">&nbsp;has a large collection of sarees, kurta kurtis, dress material, dresses, tops, leggings and more. All the collection on our site is completely designer wear upgrading with new trends and look in the market with the largest catalogue of womenâ€™s fashion. We keep enhancing our technology and product assortment to ensure that you get the most delightful shopping experience by every woman.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">We make sure you get the best quality outfits with hassle free returns and exchanges policy. We ensure what you see is exactly what you get!</span></font></p><ul><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Low Price Guarantee</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">If you find a lower price on any dress we carry online, we will match it!</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">24/7 Customer Support</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">E-Mail â™¥ Text â™¥ Call</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">We are here for you 24/7 online and via phone.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Sizing &amp; Color</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">We carry an array of colors and sizes.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Worldwide Shipping</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Unfortunately, No. Weâ€™re providing our service only throughout India.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Weâ€™d love to expand our business Internationally soon.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Easy Returns</span></font></li></ul><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Bought an outfit but want to return it? We have a 3 days easy return policy. Please mail us at boza@gmail.com for more details.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>Dream Dresses for Every Occasion</b></span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Fashionys.com carries all carefully handpicked by our stylists. If youâ€™re interested in a particular model please mail us we will try our best to offer you the loved dress.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>Verified Security</b></span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">All our transactions are Verified by Norton and with the highest standards of security.Plus, there is a lot to go around too through regular exciting offers and gifts, so spread the word and refer us to everyone from your family, friends and colleagues and get rewarded for it. And to top it all, you can share your user experience by posting reviews. Donâ€™t wait any longer Sign up with us now! start stalking, start buying and start loving and start Introducing the beauty in you.</span></font></p>\r\n', 'about-banner.jpg', 'boza.com - About Us', 'about, about us, about fashion, about company, about boza.com', 'boza.com has made you shine on your special days specially for beautiful women. Our goal has always been to celebrate YOU! To get the best in you we brought a huge collection whether youâ€™re attending a party, wedding, and all those events that require a WOW dress.', 'FAQ', 'faq-banner.jpg', 'boza.com - FAQ', '', '', 'Blog', 'blog-banner.jpg', 'Ecommerce - Blog', '', '', 'Contact Us', 'contact-banner.jpg', 'boza.com - Contact', '', '', 'Photo Gallery', 'pgallery-banner.jpg', 'Ecommerce - Photo Gallery', '', '', 'Video Gallery', 'vgallery-banner.jpg', 'Ecommerce - Video Gallery', '', '');
+(1, 'About Us', '<p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>Fashionys.com</b> has made you shine on your special days specially for beautiful women. Our goal has always been to celebrate YOU! To get the best in you we brought a huge collection whether youâ€™re attending a party, wedding, and all those events that require a WOW dress.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>About Us</b></span></font></p><p style=\"text-align: justify; \"><span style=\"font-family: apercu, Arial, sans-serif; font-size: 14px; font-weight: 700;\">Fashionys.com</span><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">&nbsp;is a new fashion shopping site which brings trendy fashion products at addictive prices. We feel fashion is not what you wear but how you feel, so Keeping this in mind, we brought you the designer wear clothing comprising a wide range of designs, style and prints to meet your every mood, whim and fancy.</span></font></p><p style=\"text-align: justify; \"><span style=\"font-size: 14px; font-family: apercu, Arial, sans-serif;\"><b>Our Vision</b></span><br></p><p style=\"text-align: justify; \"><span style=\"font-size: 14px; font-family: apercu, Arial, sans-serif;\">Our vision is to â€œIntroduce the beauty in you with your beautiful smileâ€ to the world with the best online shopping experience. Weâ€™ve the handpicked collection of clothes for women to suit them based on their body type, skin tone, budget and style preferences. We aim to bring our customers a wholesome real time trendy shopping experience, providing them with all the information they need regarding fit, comfort, fabric and everything else on their mind for each and every product in our collections, through size charts. Also, includes introducing new designs, styles and categories along with all the fashion happening.</span><br></p><p style=\"text-align: justify; \"><span style=\"font-weight: 700; font-family: apercu, Arial, sans-serif; font-size: 14px;\">Why Fashionys.com</span><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">?</span></font></p><p style=\"text-align: justify; \"><span style=\"font-family: apercu, Arial, sans-serif; font-size: 14px; font-weight: 700;\">Fashionys.com</span><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">&nbsp;has a large collection of sarees, kurta kurtis, dress material, dresses, tops, leggings and more. All the collection on our site is completely designer wear upgrading with new trends and look in the market with the largest catalogue of womenâ€™s fashion. We keep enhancing our technology and product assortment to ensure that you get the most delightful shopping experience by every woman.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">We make sure you get the best quality outfits with hassle free returns and exchanges policy. We ensure what you see is exactly what you get!</span></font></p><ul><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Low Price Guarantee</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">If you find a lower price on any dress we carry online, we will match it!</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">24/7 Customer Support</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">E-Mail â™¥ Text â™¥ Call</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">We are here for you 24/7 online and via phone.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Sizing &amp; Color</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">We carry an array of colors and sizes.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Worldwide Shipping</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Unfortunately, No. Weâ€™re providing our service only throughout India.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Weâ€™d love to expand our business Internationally soon.</span></font></li><li style=\"text-align: justify;\"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Easy Returns</span></font></li></ul><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Bought an outfit but want to return it? We have a 3 days easy return policy. Please mail us at boza@gmail.com for more details.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>Dream Dresses for Every Occasion</b></span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">Fashionys.com carries all carefully handpicked by our stylists. If youâ€™re interested in a particular model please mail us we will try our best to offer you the loved dress.</span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\"><b>Verified Security</b></span></font></p><p style=\"text-align: justify; \"><font face=\"apercu, Arial, sans-serif\"><span style=\"font-size: 14px;\">All our transactions are Verified by Norton and with the highest standards of security.Plus, there is a lot to go around too through regular exciting offers and gifts, so spread the word and refer us to everyone from your family, friends and colleagues and get rewarded for it. And to top it all, you can share your user experience by posting reviews. Donâ€™t wait any longer Sign up with us now! start stalking, start buying and start loving and start Introducing the beauty in you.</span></font></p>\r\n', 'about-banner.jpg', 'Fashionys.com - About Us', 'about, about us, about fashion, about company, about fashionys', 'Fashionys.com has made you shine on your special days specially for beautiful women. Our goal has always been to celebrate YOU! To get the best in you we brought a huge collection whether youâ€™re attending a party, wedding, and all those events that require a WOW dress.', 'FAQ', 'faq-banner.jpg', 'Fashionys.com - FAQ', '', '', 'Blog', 'blog-banner.jpg', 'Ecommerce - Blog', '', '', 'Contact Us', 'contact-banner.jpg', 'Fashionys.com - Contact', '', '', 'Photo Gallery', 'pgallery-banner.jpg', 'Ecommerce - Photo Gallery', '', '', 'Video Gallery', 'vgallery-banner.jpg', 'Ecommerce - Video Gallery', '', '');
 
 -- --------------------------------------------------------
 
@@ -1037,13 +783,13 @@ INSERT INTO `tbl_page` (`id`, `about_title`, `about_content`, `about_banner`, `a
 --
 
 CREATE TABLE `tbl_payment` (
-  `id` int NOT NULL,
-  `customer_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `customer_name` varchar(255) NOT NULL,
   `customer_email` varchar(255) NOT NULL,
   `payment_date` varchar(50) NOT NULL,
   `txnid` varchar(255) NOT NULL,
-  `paid_amount` int NOT NULL,
+  `paid_amount` int(11) NOT NULL,
   `card_number` varchar(50) NOT NULL,
   `card_cvv` varchar(10) NOT NULL,
   `card_month` varchar(10) NOT NULL,
@@ -1070,7 +816,7 @@ INSERT INTO `tbl_payment` (`id`, `customer_id`, `customer_name`, `customer_email
 --
 
 CREATE TABLE `tbl_photo` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `caption` varchar(255) NOT NULL,
   `photo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1094,14 +840,14 @@ INSERT INTO `tbl_photo` (`id`, `caption`, `photo`) VALUES
 --
 
 CREATE TABLE `tbl_post` (
-  `post_id` int NOT NULL,
+  `post_id` int(11) NOT NULL,
   `post_title` varchar(255) NOT NULL,
   `post_slug` varchar(255) NOT NULL,
   `post_content` text NOT NULL,
   `post_date` varchar(255) NOT NULL,
   `photo` varchar(255) NOT NULL,
-  `category_id` int NOT NULL,
-  `total_view` int NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `total_view` int(11) NOT NULL,
   `meta_title` varchar(255) NOT NULL,
   `meta_keyword` text NOT NULL,
   `meta_description` text NOT NULL
@@ -1131,21 +877,21 @@ INSERT INTO `tbl_post` (`post_id`, `post_title`, `post_slug`, `post_content`, `p
 --
 
 CREATE TABLE `tbl_product` (
-  `p_id` int NOT NULL,
+  `p_id` int(11) NOT NULL,
   `p_name` varchar(255) NOT NULL,
   `p_old_price` varchar(10) NOT NULL,
   `p_current_price` varchar(10) NOT NULL,
-  `p_qty` int NOT NULL,
+  `p_qty` int(10) NOT NULL,
   `p_featured_photo` varchar(255) NOT NULL,
   `p_description` text NOT NULL,
   `p_short_description` text NOT NULL,
   `p_feature` text NOT NULL,
   `p_condition` text NOT NULL,
   `p_return_policy` text NOT NULL,
-  `p_total_view` int NOT NULL,
-  `p_is_featured` int NOT NULL,
-  `p_is_active` int NOT NULL,
-  `ecat_id` int NOT NULL
+  `p_total_view` int(11) NOT NULL,
+  `p_is_featured` int(1) NOT NULL,
+  `p_is_active` int(1) NOT NULL,
+  `ecat_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1167,9 +913,9 @@ INSERT INTO `tbl_product` (`p_id`, `p_name`, `p_old_price`, `p_current_price`, `
 --
 
 CREATE TABLE `tbl_product_color` (
-  `id` int NOT NULL,
-  `color_id` int NOT NULL,
-  `p_id` int NOT NULL
+  `id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1225,9 +971,9 @@ INSERT INTO `tbl_product_color` (`id`, `color_id`, `p_id`) VALUES
 --
 
 CREATE TABLE `tbl_product_photo` (
-  `pp_id` int NOT NULL,
+  `pp_id` int(11) NOT NULL,
   `photo` varchar(255) NOT NULL,
-  `p_id` int NOT NULL
+  `p_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1294,9 +1040,9 @@ INSERT INTO `tbl_product_photo` (`pp_id`, `photo`, `p_id`) VALUES
 --
 
 CREATE TABLE `tbl_product_size` (
-  `id` int NOT NULL,
-  `size_id` int NOT NULL,
-  `p_id` int NOT NULL
+  `id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1407,11 +1153,11 @@ INSERT INTO `tbl_product_size` (`id`, `size_id`, `p_id`) VALUES
 --
 
 CREATE TABLE `tbl_rating` (
-  `rt_id` int NOT NULL,
-  `p_id` int NOT NULL,
-  `cust_id` int NOT NULL,
+  `rt_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `cust_id` int(11) NOT NULL,
   `comment` text NOT NULL,
-  `rating` int NOT NULL
+  `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1421,7 +1167,7 @@ CREATE TABLE `tbl_rating` (
 --
 
 CREATE TABLE `tbl_service` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `photo` varchar(255) NOT NULL
@@ -1443,7 +1189,7 @@ INSERT INTO `tbl_service` (`id`, `title`, `content`, `photo`) VALUES
 --
 
 CREATE TABLE `tbl_settings` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `logo` varchar(255) NOT NULL,
   `favicon` varchar(255) NOT NULL,
   `footer_about` text NOT NULL,
@@ -1457,13 +1203,13 @@ CREATE TABLE `tbl_settings` (
   `receive_email_subject` varchar(255) NOT NULL,
   `receive_email_thank_you_message` text NOT NULL,
   `forget_password_message` text NOT NULL,
-  `total_recent_post_footer` int NOT NULL,
-  `total_popular_post_footer` int NOT NULL,
-  `total_recent_post_sidebar` int NOT NULL,
-  `total_popular_post_sidebar` int NOT NULL,
-  `total_featured_product_home` int NOT NULL,
-  `total_latest_product_home` int NOT NULL,
-  `total_popular_product_home` int NOT NULL,
+  `total_recent_post_footer` int(10) NOT NULL,
+  `total_popular_post_footer` int(10) NOT NULL,
+  `total_recent_post_sidebar` int(11) NOT NULL,
+  `total_popular_post_sidebar` int(11) NOT NULL,
+  `total_featured_product_home` int(11) NOT NULL,
+  `total_latest_product_home` int(11) NOT NULL,
+  `total_popular_product_home` int(11) NOT NULL,
   `meta_title_home` text NOT NULL,
   `meta_keyword_home` text NOT NULL,
   `meta_description_home` text NOT NULL,
@@ -1500,20 +1246,20 @@ CREATE TABLE `tbl_settings` (
   `before_head` text NOT NULL,
   `after_body` text NOT NULL,
   `before_body` text NOT NULL,
-  `home_service_on_off` int NOT NULL,
-  `home_welcome_on_off` int NOT NULL,
-  `home_featured_product_on_off` int NOT NULL,
-  `home_latest_product_on_off` int NOT NULL,
-  `home_popular_product_on_off` int NOT NULL,
-  `home_testimonial_on_off` int NOT NULL,
-  `home_blog_on_off` int NOT NULL,
-  `newsletter_on_off` int NOT NULL,
-  `ads_above_welcome_on_off` int NOT NULL,
-  `ads_above_featured_product_on_off` int NOT NULL,
-  `ads_above_latest_product_on_off` int NOT NULL,
-  `ads_above_popular_product_on_off` int NOT NULL,
-  `ads_above_testimonial_on_off` int NOT NULL,
-  `ads_category_sidebar_on_off` int NOT NULL
+  `home_service_on_off` int(11) NOT NULL,
+  `home_welcome_on_off` int(11) NOT NULL,
+  `home_featured_product_on_off` int(11) NOT NULL,
+  `home_latest_product_on_off` int(11) NOT NULL,
+  `home_popular_product_on_off` int(11) NOT NULL,
+  `home_testimonial_on_off` int(11) NOT NULL,
+  `home_blog_on_off` int(11) NOT NULL,
+  `newsletter_on_off` int(11) NOT NULL,
+  `ads_above_welcome_on_off` int(1) NOT NULL,
+  `ads_above_featured_product_on_off` int(1) NOT NULL,
+  `ads_above_latest_product_on_off` int(1) NOT NULL,
+  `ads_above_popular_product_on_off` int(1) NOT NULL,
+  `ads_above_testimonial_on_off` int(1) NOT NULL,
+  `ads_category_sidebar_on_off` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1521,7 +1267,7 @@ CREATE TABLE `tbl_settings` (
 --
 
 INSERT INTO `tbl_settings` (`id`, `logo`, `favicon`, `footer_about`, `footer_copyright`, `contact_address`, `contact_email`, `contact_phone`, `contact_fax`, `contact_map_iframe`, `receive_email`, `receive_email_subject`, `receive_email_thank_you_message`, `forget_password_message`, `total_recent_post_footer`, `total_popular_post_footer`, `total_recent_post_sidebar`, `total_popular_post_sidebar`, `total_featured_product_home`, `total_latest_product_home`, `total_popular_product_home`, `meta_title_home`, `meta_keyword_home`, `meta_description_home`, `banner_login`, `banner_registration`, `banner_forget_password`, `banner_reset_password`, `banner_search`, `banner_cart`, `banner_checkout`, `banner_product_category`, `banner_blog`, `cta_title`, `cta_content`, `cta_read_more_text`, `cta_read_more_url`, `cta_photo`, `featured_product_title`, `featured_product_subtitle`, `latest_product_title`, `latest_product_subtitle`, `popular_product_title`, `popular_product_subtitle`, `testimonial_title`, `testimonial_subtitle`, `testimonial_photo`, `blog_title`, `blog_subtitle`, `newsletter_text`, `paypal_email`, `stripe_public_key`, `stripe_secret_key`, `bank_detail`, `before_head`, `after_body`, `before_body`, `home_service_on_off`, `home_welcome_on_off`, `home_featured_product_on_off`, `home_latest_product_on_off`, `home_popular_product_on_off`, `home_testimonial_on_off`, `home_blog_on_off`, `newsletter_on_off`, `ads_above_welcome_on_off`, `ads_above_featured_product_on_off`, `ads_above_latest_product_on_off`, `ads_above_popular_product_on_off`, `ads_above_testimonial_on_off`, `ads_category_sidebar_on_off`) VALUES
-(1, 'logo.png', 'favicon.png', '<p>Lorem ipsum dolor sit amet, omnis signiferumque in mei, mei ex enim concludaturque. Senserit salutandi euripidis no per, modus maiestatis scribentur est an.Â Ea suas pertinax has.</p>\r\n', 'Copyright © 2023. All Rights Reserved. | A project from riara university kenya', 'France Cluster Q06\r\nDubai, United Arab Emirates', 'boza@gmail.com', '0777777777', '', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14445.264561651647!2d55.402891!3d25.158801!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb3eef1e51ba29403!2sSham+Cafe!5e0!3m2!1sen!2sae!4v1524656555881\" width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>', 'boza@gmail.com', 'Visitor Email Message from Fashionys.com', 'Thank you for sending email. We will contact you shortly.', 'A confirmation link is sent to your email address. You will get the password reset information in there.', 4, 4, 5, 5, 4, 4, 4, 'boza.com | Online Garments Shop', 'boza, garments shop, online garments, dubai garments', 'boza.com is an online garments shop.', 'banner_login.jpg', 'banner_registration.jpg', 'banner_forget_password.jpg', 'banner_reset_password.jpg', 'banner_search.jpg', 'banner_cart.jpg', 'banner_checkout.jpg', 'banner_product_category.jpg', 'banner_blog.jpg', 'Welcome To Our Ecommerce Website', 'Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has. Latine propriae quo no, unum ridens expetenda id sit, \r\nat usu eius eligendi singulis. Sea ocurreret principes ne. At nonumy aperiri pri, nam quodsi copiosae intellegebat et, ex deserunt euripidis usu. ', 'Read More', '#', 'cta.jpg', 'Featured Products', 'See all our featured products from here', 'Latest Products', 'See all our latest products from here', 'Popular Products', 'See all our popular products from here', 'Testimonials', 'See what our clients tell about us', 'testimonial.jpg', 'Latest Blog', 'See all our latest articles and news from below', 'Sign-up to our newsletter for latest promotions and discounts.', 'admin@boza.com', 'pk_test_0SwMWadgu8DwmEcPdUPRsZ7b', 'sk_test_TFcsLJ7xxUtpALbDo1L5c1PN', 'Bank Name: ABC Bank\r\nAccount Number: 1222320234444\r\nBranch Name: NY Branch\r\nCountry: USA', '<!-- Google Analytics -->\r\n<!-- Global site tag (gtag.js) - Google Analytics -->\r\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-8564299-3\"></script>\r\n<script>\r\n  window.dataLayer = window.dataLayer || [];\r\n  function gtag(){dataLayer.push(arguments);}\r\n  gtag(\'js\', new Date());\r\n\r\n  gtag(\'config\', \'UA-8564299-3\');\r\n</script>\r\n', '<div id=\"fb-root\"></div>\r\n<script>(function(d, s, id) {\r\n  var js, fjs = d.getElementsByTagName(s)[0];\r\n  if (d.getElementById(id)) return;\r\n  js = d.createElement(s); js.id = id;\r\n  js.src = \"//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=323620764400430\";\r\n  fjs.parentNode.insertBefore(js, fjs);\r\n}(document, \'script\', \'facebook-jssdk\'));</script>', '<!--Start of Tawk.to Script-->\r\n<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5ae370d7227d3d7edc24cb96/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>\r\n<!--End of Tawk.to Script-->', 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+(1, 'logo.png', 'favicon.png', '<p>Lorem ipsum dolor sit amet, omnis signiferumque in mei, mei ex enim concludaturque. Senserit salutandi euripidis no per, modus maiestatis scribentur est an.Â Ea suas pertinax has.</p>\r\n', 'copyright © 2018. All Rights Reserved. | A project from Virtual University of Pakistan Student [MC170200216]', 'France Cluster Q06\r\nDubai, United Arab Emirates', 'boza@gmail.com', '0777777777', '', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14445.264561651647!2d55.402891!3d25.158801!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb3eef1e51ba29403!2sSham+Cafe!5e0!3m2!1sen!2sae!4v1524656555881\" width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>', 'boza@gmail.com', 'Visitor Email Message from Fashionys.com', 'Thank you for sending email. We will contact you shortly.', 'A confirmation link is sent to your email address. You will get the password reset information in there.', 4, 4, 5, 5, 4, 4, 4, 'Fashionys.com | Online Garments Shop', 'fashionys, garments shop, online garments, dubai garments', 'fashionys.com is an online garments shop.', 'banner_login.jpg', 'banner_registration.jpg', 'banner_forget_password.jpg', 'banner_reset_password.jpg', 'banner_search.jpg', 'banner_cart.jpg', 'banner_checkout.jpg', 'banner_product_category.jpg', 'banner_blog.jpg', 'Welcome To Our Ecommerce Website', 'Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has. Latine propriae quo no, unum ridens expetenda id sit, \r\nat usu eius eligendi singulis. Sea ocurreret principes ne. At nonumy aperiri pri, nam quodsi copiosae intellegebat et, ex deserunt euripidis usu. ', 'Read More', '#', 'cta.jpg', 'Featured Products', 'See all our featured products from here', 'Latest Products', 'See all our latest products from here', 'Popular Products', 'See all our popular products from here', 'Testimonials', 'See what our clients tell about us', 'testimonial.jpg', 'Latest Blog', 'See all our latest articles and news from below', 'Sign-up to our newsletter for latest promotions and discounts.', 'admin@fashionys.com', 'pk_test_0SwMWadgu8DwmEcPdUPRsZ7b', 'sk_test_TFcsLJ7xxUtpALbDo1L5c1PN', 'Bank Name: ABC Bank\r\nAccount Number: 1222320234444\r\nBranch Name: NY Branch\r\nCountry: USA', '<!-- Google Analytics -->\r\n<!-- Global site tag (gtag.js) - Google Analytics -->\r\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-8564299-3\"></script>\r\n<script>\r\n  window.dataLayer = window.dataLayer || [];\r\n  function gtag(){dataLayer.push(arguments);}\r\n  gtag(\'js\', new Date());\r\n\r\n  gtag(\'config\', \'UA-8564299-3\');\r\n</script>\r\n', '<div id=\"fb-root\"></div>\r\n<script>(function(d, s, id) {\r\n  var js, fjs = d.getElementsByTagName(s)[0];\r\n  if (d.getElementById(id)) return;\r\n  js = d.createElement(s); js.id = id;\r\n  js.src = \"//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=323620764400430\";\r\n  fjs.parentNode.insertBefore(js, fjs);\r\n}(document, \'script\', \'facebook-jssdk\'));</script>', '<!--Start of Tawk.to Script-->\r\n<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5ae370d7227d3d7edc24cb96/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>\r\n<!--End of Tawk.to Script-->', 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1530,8 +1276,8 @@ INSERT INTO `tbl_settings` (`id`, `logo`, `favicon`, `footer_about`, `footer_cop
 --
 
 CREATE TABLE `tbl_shipping_cost` (
-  `shipping_cost_id` int NOT NULL,
-  `country_id` int NOT NULL,
+  `shipping_cost_id` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL,
   `amount` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1551,7 +1297,7 @@ INSERT INTO `tbl_shipping_cost` (`shipping_cost_id`, `country_id`, `amount`) VAL
 --
 
 CREATE TABLE `tbl_shipping_cost_all` (
-  `sca_id` int NOT NULL,
+  `sca_id` int(11) NOT NULL,
   `amount` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1569,7 +1315,7 @@ INSERT INTO `tbl_shipping_cost_all` (`sca_id`, `amount`) VALUES
 --
 
 CREATE TABLE `tbl_size` (
-  `size_id` int NOT NULL,
+  `size_id` int(11) NOT NULL,
   `size_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1614,7 +1360,7 @@ INSERT INTO `tbl_size` (`size_id`, `size_name`) VALUES
 --
 
 CREATE TABLE `tbl_slider` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `heading` varchar(255) NOT NULL,
   `content` text NOT NULL,
@@ -1628,7 +1374,7 @@ CREATE TABLE `tbl_slider` (
 --
 
 INSERT INTO `tbl_slider` (`id`, `photo`, `heading`, `content`, `button_text`, `button_url`, `position`) VALUES
-(1, 'slider-1.jpg', 'Welcome to boza.com', 'Shop Online for Latest Women Accessories', 'Shop Women Accessories', 'http://fashionys.com/product-category.php?id=4&type=mid-category', 'Center'),
+(1, 'slider-1.jpg', 'Welcome to Fashionys.com', 'Shop Online for Latest Women Accessories', 'Shop Women Accessories', 'http://fashionys.com/product-category.php?id=4&type=mid-category', 'Center'),
 (2, 'slider-2.jpg', '50% Discount on All Products', 'Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has.', 'Read More', '#', 'Center'),
 (3, 'slider-3.jpg', '24 Hours Customer Support', 'Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has.', 'Read More', '#', 'Right');
 
@@ -1639,7 +1385,7 @@ INSERT INTO `tbl_slider` (`id`, `photo`, `heading`, `content`, `button_text`, `b
 --
 
 CREATE TABLE `tbl_social` (
-  `social_id` int NOT NULL,
+  `social_id` int(11) NOT NULL,
   `social_name` varchar(30) NOT NULL,
   `social_url` varchar(255) NOT NULL,
   `social_icon` varchar(30) NOT NULL
@@ -1650,8 +1396,8 @@ CREATE TABLE `tbl_social` (
 --
 
 INSERT INTO `tbl_social` (`social_id`, `social_name`, `social_url`, `social_icon`) VALUES
-(1, 'Facebook', 'https://www.boza.com/boza', 'fa fa-facebook'),
-(2, 'Twitter', 'https://www.boza.com/boza', 'fa fa-twitter'),
+(1, 'Facebook', 'https://www.facebook.com/fashionys', 'fa fa-facebook'),
+(2, 'Twitter', 'https://www.twitter.com/fashionys', 'fa fa-twitter'),
 (3, 'LinkedIn', '', 'fa fa-linkedin'),
 (4, 'Google Plus', '', 'fa fa-google-plus'),
 (5, 'Pinterest', '', 'fa fa-pinterest'),
@@ -1674,12 +1420,12 @@ INSERT INTO `tbl_social` (`social_id`, `social_name`, `social_url`, `social_icon
 --
 
 CREATE TABLE `tbl_subscriber` (
-  `subs_id` int NOT NULL,
+  `subs_id` int(11) NOT NULL,
   `subs_email` varchar(255) NOT NULL,
   `subs_date` varchar(100) NOT NULL,
   `subs_date_time` varchar(100) NOT NULL,
   `subs_hash` varchar(255) NOT NULL,
-  `subs_active` int NOT NULL
+  `subs_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1689,9 +1435,9 @@ CREATE TABLE `tbl_subscriber` (
 --
 
 CREATE TABLE `tbl_top_category` (
-  `tcat_id` int NOT NULL,
+  `tcat_id` int(11) NOT NULL,
   `tcat_name` varchar(255) NOT NULL,
-  `show_on_menu` int NOT NULL
+  `show_on_menu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1710,7 +1456,7 @@ INSERT INTO `tbl_top_category` (`tcat_id`, `tcat_name`, `show_on_menu`) VALUES
 --
 
 CREATE TABLE `tbl_user` (
-  `id` int NOT NULL,
+  `id` int(10) NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(100) NOT NULL,
@@ -1725,8 +1471,8 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id`, `full_name`, `email`, `phone`, `password`, `photo`, `role`, `status`) VALUES
-(1, 'Hammad Hassan', 'hammad.shahir@gmail.com', '', '81dc9bdb52d04dc20036dbd8313ed055', 'user-1.jpg', 'Super Admin', 'Active'),
-(13, 'Syed Hammad Hassan Bukhari', 'mc170200216@vu.edu.pk', '', '81dc9bdb52d04dc20036dbd8313ed055', 'user-13.jpg', 'Admin', 'Active');
+(1, 'Joshua tugi', 'joshua.muriithi@gmail.com', '0759876943', 'mutugiiimurithiii', 'user-1.jpg', 'Super Admin', 'Active'),
+(13, 'Elvis Kithinji', 'kithinjielvis@gmail.com', '0741439368', 'mutugiiimurithiii', 'user-13.jpg', 'Admin', 'Active');
 
 -- --------------------------------------------------------
 
@@ -1735,7 +1481,7 @@ INSERT INTO `tbl_user` (`id`, `full_name`, `email`, `phone`, `password`, `photo`
 --
 
 CREATE TABLE `tbl_video` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `iframe_code` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1749,104 +1495,9 @@ INSERT INTO `tbl_video` (`id`, `title`, `iframe_code`) VALUES
 (2, 'Video 2', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/sinQ06YzbJI\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>'),
 (4, 'Video 3', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/ViZNgU-Yt-Y\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `firstname` varchar(250) NOT NULL,
-  `lastname` varchar(250) NOT NULL,
-  `username` text NOT NULL,
-  `password` text NOT NULL,
-  `avatar` text,
-  `last_login` datetime DEFAULT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `avatar`, `last_login`, `type`, `date_added`, `date_updated`) VALUES
-(1, 'Adminstrator', 'Admin', 'admin', '0192023a7bbd73250516f069df18b500', 'uploads/avatars/1.png?v=1645064505', NULL, 1, '2021-01-20 14:02:37', '2022-02-17 10:21:45');
-
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `brands`
---
-ALTER TABLE `brands`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `inventory_id` (`inventory_id`),
-  ADD KEY `client_id` (`client_id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `client_id` (`client_id`);
-
---
--- Indexes for table `order_list`
---
-ALTER TABLE `order_list`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `inventory_id` (`inventory_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `brand_id` (`brand_id`,`category_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `sales`
---
-ALTER TABLE `sales`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Indexes for table `system_info`
---
-ALTER TABLE `system_info`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_color`
@@ -2023,297 +1674,182 @@ ALTER TABLE `tbl_video`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `brands`
---
-ALTER TABLE `brands`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `clients`
---
-ALTER TABLE `clients`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `inventory`
---
-ALTER TABLE `inventory`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `order_list`
---
-ALTER TABLE `order_list`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `sales`
---
-ALTER TABLE `sales`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `system_info`
---
-ALTER TABLE `system_info`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_color`
 --
 ALTER TABLE `tbl_color`
-  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `color_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_country`
 --
 ALTER TABLE `tbl_country`
-  MODIFY `country_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `cust_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer_message`
 --
 ALTER TABLE `tbl_customer_message`
-  MODIFY `customer_message_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `customer_message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_end_category`
 --
 ALTER TABLE `tbl_end_category`
-  MODIFY `ecat_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `ecat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `tbl_faq`
 --
 ALTER TABLE `tbl_faq`
-  MODIFY `faq_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `faq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_language`
 --
 ALTER TABLE `tbl_language`
-  MODIFY `lang_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `lang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- AUTO_INCREMENT for table `tbl_mid_category`
 --
 ALTER TABLE `tbl_mid_category`
-  MODIFY `mcat_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `mcat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `tbl_page`
 --
 ALTER TABLE `tbl_page`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_photo`
 --
 ALTER TABLE `tbl_photo`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_post`
 --
 ALTER TABLE `tbl_post`
-  MODIFY `post_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `p_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `tbl_product_color`
 --
 ALTER TABLE `tbl_product_color`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
 -- AUTO_INCREMENT for table `tbl_product_photo`
 --
 ALTER TABLE `tbl_product_photo`
-  MODIFY `pp_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `pp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `tbl_product_size`
 --
 ALTER TABLE `tbl_product_size`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
 
 --
 -- AUTO_INCREMENT for table `tbl_rating`
 --
 ALTER TABLE `tbl_rating`
-  MODIFY `rt_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `rt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_service`
 --
 ALTER TABLE `tbl_service`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_settings`
 --
 ALTER TABLE `tbl_settings`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping_cost`
 --
 ALTER TABLE `tbl_shipping_cost`
-  MODIFY `shipping_cost_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `shipping_cost_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping_cost_all`
 --
 ALTER TABLE `tbl_shipping_cost_all`
-  MODIFY `sca_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sca_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_size`
 --
 ALTER TABLE `tbl_size`
-  MODIFY `size_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_slider`
 --
 ALTER TABLE `tbl_slider`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_social`
 --
 ALTER TABLE `tbl_social`
-  MODIFY `social_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `social_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_subscriber`
 --
 ALTER TABLE `tbl_subscriber`
-  MODIFY `subs_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `subs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_top_category`
 --
 ALTER TABLE `tbl_top_category`
-  MODIFY `tcat_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `tcat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_video`
 --
 ALTER TABLE `tbl_video`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`inventory_id`) REFERENCES `inventory` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `order_list`
---
-ALTER TABLE `order_list`
-  ADD CONSTRAINT `order_list_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_list_ibfk_2` FOREIGN KEY (`inventory_id`) REFERENCES `inventory` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `sales`
---
-ALTER TABLE `sales`
-  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

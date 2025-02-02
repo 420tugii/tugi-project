@@ -13,16 +13,16 @@ date_default_timezone_set('Asia/Dubai');
 $dbhost = 'localhost';
 
 // Database Name
-$dbname = 'fashiony_ogs';
+$dbname = 'boza_marketing';
 
 // Database Username
-$dbuser = 'fashiony_ogs';
+$dbuser = 'boza_marketing';
 
 // Database Password
 $dbpass = 'simple123';
 
 // Defining base url
-define("BASE_URL", "http://fashionys.com/");
+define("BASE_URL", "http://bozamarket.com/");
 
 // Getting Admin url
 define("ADMIN_URL", BASE_URL . "admin" . "/");

@@ -32,8 +32,9 @@ if(isset($_POST['form1'])) {
             $error_message .= LANG_VALUE_133.'<br>';
         } else {
             //using MD5 form
-            if( $row_password != md5($cust_password) ) {
-                $error_message .= LANG_VALUE_139.'<br>';
+            if( $row_password != $cust_password ) {
+                // $error_message .= LANG_VALUE_139.'<br>';
+                $error_message .= $cust_password.'<br>';
             } else {
                 if($cust_status == 0) {
                     $error_message .= LANG_VALUE_148.'<br>';
